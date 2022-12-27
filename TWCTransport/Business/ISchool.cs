@@ -7,10 +7,10 @@ namespace TWCTransport.Business
         {
 
 
-        Task<List<School>>GetSchoolListAsync();
+       // string  GetSchoolListAsync();
+        Task<List<School>> GetSchoolListAsync();
 
-            
-        }
+    }
     
 
 }

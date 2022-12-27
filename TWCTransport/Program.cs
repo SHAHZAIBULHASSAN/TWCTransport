@@ -1,17 +1,19 @@
 using TWCTransport.Business;
 using TWCTransport.Model.Config;
 using TWCTransport.Provider;
+using TWCTransport.Controllers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+//string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var config = builder.Configuration;
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<DataverseConfig>(config.GetSection(nameof(DataverseConfig)));
 builder.Services.AddSingleton<IDataverseProvider, DataverseProvider>();
 builder.Services.AddTransient<ITransportRequestManager, TransportRequestManager>();
 builder.Services.AddTransient<IOptionSetManager, OptionSetManager>();
+builder.Services.AddTransient<ISchool, SchoolManager>();
 builder.Services.Configure<DataverseConfig>(builder.Configuration.GetSection("PowerPlatformConfig"));
 
 builder.Services.AddCors();
@@ -40,5 +42,7 @@ app.MapControllerRoute(
     pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html"); ;
+
+
 
 app.Run();
