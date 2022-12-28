@@ -21,12 +21,9 @@ namespace TWCTransport.Business
             result.Id = entity.GetAttributeValue<Guid>("ss_schoolid");
             result.SchoolPostCode = entity.GetAttributeValue<string>("ss_postcode");
             result.SchoolAnalysisCode = entity.GetAttributeValue<string>("ss_analysiscode");
-          //   result.SchoolNumber = entity.GetAttributeValue<int>("ss_schoolnumber");
+             result.SchoolNumber = entity.GetAttributeValue<string>("ss_schoolnumber");
             result.SchoolName = entity.GetAttributeValue<string>("ss_name");
-            //  result.SchoolName = entity.GetAttributeValue<OptionSetValue>("ss_educationtype");
-
-
-            return result;
+           return result;
         }
 
         async Task<List<School>> ISchool.GetSchoolListAsync()

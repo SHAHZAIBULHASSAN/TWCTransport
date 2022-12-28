@@ -6,7 +6,7 @@ using TWCTransport.Controllers;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-//string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 var config = builder.Configuration;
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<DataverseConfig>(config.GetSection(nameof(DataverseConfig)));
@@ -29,6 +29,14 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseCors(options =>
+{
+    options.
+    AllowAnyOrigin().AllowAnyMethod().
+    AllowAnyHeader();
+
+
+});
 app.UseRouting();
 app.UseAuthorization();
 AddBusinessManagers(builder.Services);

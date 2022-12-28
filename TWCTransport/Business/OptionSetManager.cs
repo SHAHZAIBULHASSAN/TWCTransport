@@ -21,25 +21,11 @@ namespace TWCTransport.Business
         private static OptionSetModel MapToTRDataverse(Entity entity)
         {
             var result = new OptionSetModel();
-           result.AttributeValue = entity.GetAttributeValue<OptionSetValue>("ss_contacttitle").Value.ToString();
+            result.AttributeValue = entity.GetAttributeValue<OptionSetValue>("ss_contacttitle").Value.ToString();
             result.AttributeName = entity.FormattedValues["ss_contacttitle"].ToString();
-       
-            //result.StringmapId = entity.GetAttributeValue<Guid>("stringmapid");
-            //result.AttributeName = entity.GetAttributeValue<string>("attributename");
-            //result.AttributeValue = entity.GetAttributeValue<string>("attributevalue");
-            //result.ObjectCode = entity.GetAttributeValue<string>("objecttypecode");
-            //result.OSValue = entity.GetAttributeValue<string>("value");
+
             return result;
         }
-
-
-
-
-
-
-
-
-
 
         public async Task<OptionSetModel> GetByIdAsync(Guid id)
         {
@@ -51,73 +37,73 @@ namespace TWCTransport.Business
             };
             var entityCollection = await client.RetrieveMultipleAsync(query);//Get all records
                                                                              // var list = entityCollection.Entities.Select(entity => MapToLead(entity)).ToList(); //Getrecord from one by one from collection and MapToLead return model objects
-                                                                             var entity = await client.RetrieveAsync("stringmap", id, new ColumnSet(true));
-                                                                              var record = MapToTRDataverse(entity);
+            var entity = await client.RetrieveAsync("stringmap", id, new ColumnSet(true));
+            var record = MapToTRDataverse(entity);
 
-            return  record;
-    
+            return record;
+
         }
-        public List<OptionSetModel> GetAllOptionset(string entityName,string optionAttribute)
+        public List<OptionSetModel> GetAllOptionset(string entityName, string optionAttribute)
         {
             var items = new List<SelectListItem>();
 
-                var request = new RetrieveAttributeRequest();
+            var request = new RetrieveAttributeRequest();
 
-                request.EntityLogicalName = entityName;
+            request.EntityLogicalName = entityName;
 
-                request.MetadataId = Guid.Empty;
+            request.MetadataId = Guid.Empty;
 
-                request.LogicalName = optionAttribute;
+            request.LogicalName = optionAttribute;
 
-                request.RetrieveAsIfPublished = true;
-
-
-
-                var response = client.Execute(request);
+            request.RetrieveAsIfPublished = true;
 
 
 
-                List<OptionSetModel> resultlist = new List<OptionSetModel>();
-                if (response != null && response.Results != null)
+            var response = client.Execute(request);
+
+
+
+            List<OptionSetModel> resultlist = new List<OptionSetModel>();
+            if (response != null && response.Results != null)
+
+            {
+
+                foreach (KeyValuePair<string, object> param in response.Results)
 
                 {
 
-                    foreach (KeyValuePair<string, object> param in response.Results)
+                    string key = param.Key;
+
+                    EnumAttributeMetadata metadata = (EnumAttributeMetadata)param.Value;
+
+
+                    foreach (OptionMetadata option in metadata.OptionSet.Options)
 
                     {
+                        OptionSetModel optionSet = new OptionSetModel();
+                        optionSet.OptionSetname = entityName;
+                        optionSet.AttributeValue = option.Value.ToString();
+                        optionSet.AttributeName = option.Label.UserLocalizedLabel.Label.ToString();
+                        resultlist.Add(optionSet);
 
-                        string key = param.Key;
-
-                        EnumAttributeMetadata metadata = (EnumAttributeMetadata)param.Value;
-
-
-                        foreach (OptionMetadata option in metadata.OptionSet.Options)
-
-                        {
-                            OptionSetModel optionSet = new OptionSetModel();
-                            optionSet.OptionSetname = entityName;
-                            optionSet.AttributeValue = option.Value.ToString();
-                            optionSet.AttributeName = option.Label.UserLocalizedLabel.Label.ToString();
-                            resultlist.Add(optionSet);
-
-                        }
                     }
                 }
+            }
 
-                return resultlist;
-           
-           
+            return resultlist;
+
+
         }
         public async Task<List<OptionSetModel>> GetListAsync(string entityName, string osName)
         {
-          
-        
+
+
             //string entityName = "ss_transportrequest";
             List<OptionSetModel> contact_titleOptionsetList = GetAllOptionset(entityName, osName);
             //List<OptionSetModel> ceducation_schooltypeOptionsetList = GetAllOptionset(entityName, "ss_educationschooltype");
 
 
-         
+
 
             return contact_titleOptionsetList;
         }
@@ -125,7 +111,7 @@ namespace TWCTransport.Business
         public Task UpdateAsync(OptionSetModel optionSetModelData)
         {
             throw new NotImplementedException();
-       
+
         }
 
 
@@ -149,7 +135,7 @@ namespace TWCTransport.Business
 
 
 
-        }
+    }
 
 
 }

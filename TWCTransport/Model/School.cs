@@ -8,8 +8,8 @@
         public string SchoolName { get; set; }
         public string SchoolPostCode { get; set; }
         public string SchoolAnalysisCode { get; set; }
-      // public string SchoolEucationType { get; set; }
-       // public int32 SchoolNumber { get; set; }
+       public string SchoolEucationType { get; set; }
+        public string SchoolNumber { get; set; }
 
 
     }
