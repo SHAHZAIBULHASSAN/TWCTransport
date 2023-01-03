@@ -33,9 +33,9 @@ namespace TWCTransport.Business
             result.OwningBusinessUnit = OwningBusinessUnitLookup == null ? "" : OwningBusinessUnitLookup.Name;
             result.OwningTeam = OwningTeamLookup == null ? "" : OwningTeamLookup.Name;
             result.OwningUser = OwningUserLookup == null ? "" : OwningUserLookup.Name;
-
-     
-
+            
+            result.ContactTitle = entity.GetAttributeValue<int>("ss_contacttitle");
+            result.EducationSchoolType = entity.GetAttributeValue<int>("ss_educationschooltype");
             result.ContactFirstName = entity.GetAttributeValue<string>("ss_contactfirstname");
             result.ContactLastName = entity.GetAttributeValue<string>("ss_contactlastname");
             result.ContactEmail = entity.GetAttributeValue<string>("ss_contactemail");
@@ -111,20 +111,22 @@ namespace TWCTransport.Business
 
             var entity = new Entity("ss_transportrequest");
             // var bookAuthorLookup = entity.GetAttributeValue<EntityReference>("mgt_author");
-            //entity["ss_contacttitle"] = trnsReqModelData.ContactTitle;
+           
+            entity["ss_contacttitle"] = new OptionSetValue(trnsReqModelData.ContactTitle);
+            entity["ss_educationschooltype"] = new OptionSetValue(trnsReqModelData.EducationSchoolType);
+            entity["ss_mobilityequipment"] = new OptionSetValue(trnsReqModelData.MobilityEquipment);
 
-
-            //entity["ss_contactfirstname"] = trnsReqModelData.ContactFirstName;
-            //entity["ss_contactlastname"] = trnsReqModelData.ContactLastName;
-            //entity["ss_contactemail"] = trnsReqModelData.ContactEmail;
-            //entity["ss_contactphone"] = trnsReqModelData.ContactPhone;
+            entity["ss_contactfirstname"] = trnsReqModelData.ContactFirstName;
+            entity["ss_contactlastname"] = trnsReqModelData.ContactLastName;
+            entity["ss_contactemail"] = trnsReqModelData.ContactEmail;
+            entity["ss_contactphone"] = trnsReqModelData.ContactPhone;
             entity["ss_contactaddressline1"] = trnsReqModelData.ContactAddressline1;
             entity["ss_contactaddressline2"] = trnsReqModelData.ContactAddressline2;
             entity["ss_contactaddressline3"] = trnsReqModelData.ContactAddressline3;
             entity["ss_contactaddressline4"] = trnsReqModelData.ContactAddressline4;
             entity["ss_contactaddresspostcode"] = trnsReqModelData.ContactAddressPostcode;
-            //entity["ss_contactrelationship"] = trnsReqModelData.ContactRelationship;
-//lookup
+            entity["ss_contactrelationship"] = trnsReqModelData.ContactRelationship;
+            //lookup
             //entity.Attributes["createdby"] = new EntityReference("createdby", new Guid(trnsReqModelData.CreatedBy));
             //entity.Attributes["modifiedby"] = new EntityReference("modifiedby", new Guid(trnsReqModelData.ModifiedBy));
             //entity.Attributes["owningbusinessunit"] = new EntityReference("owningbusinessunit", new Guid(trnsReqModelData.OwningBusinessUnit));
@@ -133,39 +135,39 @@ namespace TWCTransport.Business
 
 
             ////entity["createdon"] = trnsReqModelData.CreatedOn;
-            //entity["ss_documentviewercontrol"] = trnsReqModelData.DocumentViewerControl;
-            //entity["ss_educationcoursetitle"] = trnsReqModelData.EducationCourseTitle;
-            //entity["ss_educationehcpfinaliseddate"] = trnsReqModelData.EducationEHCPFinalisedDate;
+            entity["ss_documentviewercontrol"] = trnsReqModelData.DocumentViewerControl;
+            entity["ss_educationcoursetitle"] = trnsReqModelData.EducationCourseTitle;
+            entity["ss_educationehcpfinaliseddate"] = trnsReqModelData.EducationEHCPFinalisedDate;
             //entity["ss_educationfirstyearofstudy"] = trnsReqModelData.EducationFirstYearOfStudy;
-            //entity["ss_educationhasappliedforbursary"] = trnsReqModelData.EducationHasAppliedForBursary;
-            //entity["ss_educationnearestschoolcollege"] = trnsReqModelData.EducationNearestSchoolCollege;
-            //entity["ss_educationqualification"] = trnsReqModelData.EducationQualification;
-            //entity["ss_educationschooladmittancedate"] = trnsReqModelData.EducationSchoolAdmittanceDate;
-            //entity["ss_educationwhynotnearestschool"] = trnsReqModelData.EducationWhyNotNearestSchool;
+            entity["ss_educationhasappliedforbursary"] = trnsReqModelData.EducationHasAppliedForBursary;
+            entity["ss_educationnearestschoolcollege"] = trnsReqModelData.EducationNearestSchoolCollege;
+            entity["ss_educationqualification"] = trnsReqModelData.EducationQualification;
+            entity["ss_educationschooladmittancedate"] = trnsReqModelData.EducationSchoolAdmittanceDate;
+            entity["ss_educationwhynotnearestschool"] = trnsReqModelData.EducationWhyNotNearestSchool;
 
 
             //entity["importsequencenumber"] = trnsReqModelData.ImportSequenceNumber;
             //entity["ss_maximumtaxcredits"] = trnsReqModelData.MaximumTaxCredits;
             //entity["ss_mobilitycantransfertoseatwhilsttravelling"] = trnsReqModelData.MobilityCanTransferToSeatWhilstTravelling;
-            //entity["ss_mobilitydetails"] = trnsReqModelData.MobilityDetails;
-            //entity["ss_mobilityequipmentdimensions"] = trnsReqModelData.MobilityEquipmentDimensions;
-            //entity["ss_mobilityhasissues"] = trnsReqModelData.MobilityHasIssues;
+            entity["ss_mobilitydetails"] = trnsReqModelData.MobilityDetails;
+            entity["ss_mobilityequipmentdimensions"] = trnsReqModelData.MobilityEquipmentDimensions;
+            entity["ss_mobilityhasissues"] = trnsReqModelData.MobilityHasIssues;
             //entity["modifiedon"] = trnsReqModelData.ModifiedOn;
             //entity["ss_otherdetails"] = trnsReqModelData.OtherDetails;
             //entity["overriddencreatedon"] = trnsReqModelData.OverriddenCreatedOn;
 
 
-            //entity["ss_seizuresfrequency"] = trnsReqModelData.SeizuresFrequency;
-            //entity["ss_seizureshasseizures"] = trnsReqModelData.SeizuresHasSeizures;
-            //entity["ss_seizuressigns"] = trnsReqModelData.SeizuresSigns;
-            //entity["ss_seizurestype"] = trnsReqModelData.SeizuresType;
-            //entity["ss_sendormedicaldetails"] = trnsReqModelData.SendOrMedicalDetails;
-            //entity["ss_sendormedicalhassendormedicalneeds"] = trnsReqModelData.SendOrMedicalHasSendOrMedicalNeeds;
-            //entity["ss_studentdetailsaddressline1"] = trnsReqModelData.StudentDetailsAddressLine1;
-            //entity["ss_studentdetailsaddressline2"] = trnsReqModelData.StudentDetailsAddressLine2;
-            //entity["ss_studentdetailsaddressline3"] = trnsReqModelData.StudentDetailsAddressLine3;
-            //entity["ss_studentdetailsaddressline4"] = trnsReqModelData.StudentDetailsAddressLine4;
-            //entity["ss_studentdetailsaddresspostcode"] = trnsReqModelData.StudentDetailsAddressPostcode;
+            entity["ss_seizuresfrequency"] = trnsReqModelData.SeizuresFrequency;
+            entity["ss_seizureshasseizures"] = trnsReqModelData.SeizuresHasSeizures;
+            entity["ss_seizuressigns"] = trnsReqModelData.SeizuresSigns;
+            entity["ss_seizurestype"] = trnsReqModelData.SeizuresType;
+            entity["ss_sendormedicaldetails"] = trnsReqModelData.SendOrMedicalDetails;
+            entity["ss_sendormedicalhassendormedicalneeds"] = trnsReqModelData.SendOrMedicalHasSendOrMedicalNeeds;
+            entity["ss_studentdetailsaddressline1"] = trnsReqModelData.StudentDetailsAddressLine1;
+            entity["ss_studentdetailsaddressline2"] = trnsReqModelData.StudentDetailsAddressLine2;
+            entity["ss_studentdetailsaddressline3"] = trnsReqModelData.StudentDetailsAddressLine3;
+            entity["ss_studentdetailsaddressline4"] = trnsReqModelData.StudentDetailsAddressLine4;
+            entity["ss_studentdetailsaddresspostcode"] = trnsReqModelData.StudentDetailsAddressPostcode;
             //entity["ss_studentdetailshasdisabilitylivingallowance"] = trnsReqModelData.StudentDetailsHasDisabilityLivingAllowance;
             //entity["ss_studentdetailsincare"] = trnsReqModelData.StudentDetailsInCare;
             //entity["ss_studentdetailslivesatdifferentaddress"] = trnsReqModelData.StudentDetailsLivesAtDifferentAddress;

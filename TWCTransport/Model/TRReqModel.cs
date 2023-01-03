@@ -24,7 +24,7 @@
 
 
 
-        public string ContactTitle { get; set; } //optionSet
+        public int ContactTitle { get; set; } //optionSet
         
         public string CreatedBy { get; set; } //lookup
 
@@ -47,7 +47,7 @@
         public string EducationQualification { get; set; }
         public DateTime? EducationSchoolAdmittanceDate { get; set; }
 
-        public string EducationSchoolType { get; set; }//optionSet
+        public int EducationSchoolType { get; set; }//optionSet
         public Boolean EducationWhyNotNearestSchool { get; set; }
         public Boolean FreeSchoolMealsEntitlement { get; set; }
         public string GroundsForApplication { get; set; }//optionSet
@@ -60,7 +60,7 @@
         public Boolean MobilityCanTransferToSeatWhilstTravelling { get; set; }
         public string MobilityDetails { get; set; }
 
-        public string MobilityEquipment { get; set; }//optionSet
+        public int MobilityEquipment { get; set; }//optionSet
         public string MobilityEquipmentDimensions { get; set; }
         public Boolean MobilityHasIssues { get; set; }
         
